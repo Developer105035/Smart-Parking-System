@@ -1,4 +1,4 @@
-package com.example.test2;
+package com.example.test2.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,9 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView register;
     private EditText editTextUsername, editTextPassword;
     private Button SignIn;
-
     private FirebaseAuth mAuth;
-    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         editTextUsername =  (EditText) findViewById(R.id.username);
         editTextPassword = (EditText) findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
 
         TextView username =(TextView) findViewById(R.id.username);
@@ -83,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.register:
-                startActivity(new Intent(this,RegisterUser.class));
+                startActivity(new Intent(this, RegisterUser.class));
                 break;
 
             case R.id.loginbtn:
@@ -115,9 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        // when we reach here it means we have passed the validations..
 
-        progressBar.setVisibility(View.VISIBLE);
 
 
         mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -126,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(task.isSuccessful()){
                     //redirect to user profile
-
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 }
                 else{

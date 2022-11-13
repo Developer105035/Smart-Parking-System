@@ -1,12 +1,13 @@
-package com.example.test2;
+package com.example.test2.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.test2.R;
+import com.example.test2.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,6 +29,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private TextView app_name, registerUser;
     private EditText editTextFullName, editTextEmailID, editTextAge, editTextPhoneNumber, editTextLicenseNo,editTextAddress, editTextPassword;
     private ProgressBar progressBar;
+    public SharedPreferences sh;
+    public SharedPreferences.Editor editor;
 // ...
 // Initialize Firebase Auth
 
@@ -136,7 +141,10 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             User user = new User(FullName,Age, PhoneNumber, LicenseNo, Address, Password);
 
-
+                            sh = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            editor = sh.edit();
+                            editor.putString("name",FullName);
+                            editor.commit();
                             FirebaseDatabase.getInstance().getReference( "Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

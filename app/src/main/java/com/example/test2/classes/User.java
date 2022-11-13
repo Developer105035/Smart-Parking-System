@@ -1,4 +1,4 @@
-package com.example.test2;
+package com.example.test2.classes;
 
 public class User {
 
