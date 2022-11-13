@@ -1,13 +1,15 @@
-package com.example.test2;
+package com.example.test2.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
-public class ProfileActivity extends AppCompatActivity {
+import com.example.test2.R;
+public class UserSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_settings);
     }
 }

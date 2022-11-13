@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".RegisterUser">
+    tools:context=".activities.RegisterUser">
+
     <TextView
         android:id="@+id/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
         android:gravity="center"
@@ -20,6 +21,7 @@
         android:textColor="@color/white"
         android:textSize="35dp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/register"
         android:layout_width="match_parent"
@@ -35,15 +37,7 @@
         android:textColor="@color/white"
         android:textSize="35dp"
         android:textStyle="bold" />
-    <Spinner
-        android:id="@+id/formulae"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:dropDownWidth="wrap_content"
-        android:gravity="center"
-        android:paddingLeft="0dp" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -165,7 +159,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="20dp"
-        android:hint="password"
+        android:hint="Password"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
