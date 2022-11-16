@@ -159,10 +159,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             User user = new User(FullName,email, Age, PhoneNumber, LicenseNo, Address, Password);
 
-                            sh = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                            editor = sh.edit();
-                            editor.putString("name",FullName);
-                            editor.commit();
+
                             FirebaseDatabase.getInstance().getReference( "Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
