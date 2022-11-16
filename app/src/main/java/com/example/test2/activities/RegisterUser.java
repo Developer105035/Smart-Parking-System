@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +32,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private ProgressBar progressBar;
     public SharedPreferences sh;
     public SharedPreferences.Editor editor;
+
+    private FirebaseDatabase rootNode;      // Reference to root node of the database.
+    private DatabaseReference myRef;    // Reference to subelements of the root node.
 // ...
 // Initialize Firebase Auth
 
@@ -67,6 +71,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         case R.id.app_name:
             startActivity(new Intent( this, MainActivity.class));
+            //rootNode = FirebaseDatabase.getInstance();
+           // myRef=  rootNode.getReference( );
+            //User user = new User("pawan","pavan@gmail.com", "22", "1236547896", "qwed5qwsdf", "A82698", "12345678");
+
+
+           // myRef.child("User").setValue(user);
             break;
         case R.id.registerbtn:
             registerUser();  // method with the name of RegisterUser
@@ -132,6 +142,14 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         }
 
+     //   rootNode = FirebaseDatabase.getInstance();
+      //  myRef=  rootNode.getReference();
+       // User user = new User(FullName,email, Age, PhoneNumber, LicenseNo, Address, Password);
+
+       // myRef.child("User").child(email).setValue(user);
+
+
+
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,Password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
@@ -139,7 +157,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task){
 
                         if(task.isSuccessful()){
-                            User user = new User(FullName,Age, PhoneNumber, LicenseNo, Address, Password);
+                            User user = new User(FullName,email, Age, PhoneNumber, LicenseNo, Address, Password);
 
                             sh = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             editor = sh.edit();
@@ -151,8 +169,15 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
+                                                rootNode = FirebaseDatabase.getInstance();
+                                                myRef=  rootNode.getReference();
+
+
+                                                myRef.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+
                                                 Toast.makeText( RegisterUser.this,"User has been registered successfully ",Toast.LENGTH_LONG ).show();
                                                 progressBar.setVisibility(View.GONE);
+
 
                                                 // Redirect to login layout.
                                             }else {

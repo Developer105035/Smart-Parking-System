@@ -1,23 +1,82 @@
 package com.example.test2.classes;
 
-public class User {
+import android.widget.TextView;
 
-    public String FullName, EmailID, Age, PhoneNumber, LicenseNo,Address, Password;
+public class User{
+    public String FullName;
+    String Email;
+    String Age;
+    String PhoneNumber;
+    String LicenseNo;
+    String Address;
+    String Password;
 
-    public User(String fullName, String age, String phoneNumber, String licenseNo, String address, String password) {
-
+    public User() {
     }
 
-    public User( String fullName, String EmailID, String Age, String PhoneNumber,String LicenseNo,String Address, String Password){
+    public User(String fullName, String email, String age, String phoneNumber, String licenseNo, String address, String password) {
+        FullName = fullName;
+        Email = email;
+        Age = age;
+        PhoneNumber = phoneNumber;
+        LicenseNo = licenseNo;
+        Address = address;
+        Password = password;
+    }
 
-        this.FullName = fullName;
-        this.EmailID = EmailID;
-        this.Age = Age;
-        this.PhoneNumber = PhoneNumber;
-        this.LicenseNo = LicenseNo;
-        this.Address = Address;
-        this.Password = Password;
+    public String getFullName() {
+        return FullName;
+    }
 
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String age) {
+        Age = age;
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    public String getLicenseNo() {
+        return LicenseNo;
+    }
+
+    public void setLicenseNo(String licenseNo) {
+        LicenseNo = licenseNo;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
     }
 }
