@@ -3,7 +3,7 @@ package com.example.test2.classes;
 import android.widget.TextView;
 
 public class User{
-    public String FullName;
+    public String fullName;
     String Email;
     String Age;
     String PhoneNumber;
@@ -15,7 +15,7 @@ public class User{
     }
 
     public User(String fullName, String email, String age, String phoneNumber, String licenseNo, String address, String password) {
-        FullName = fullName;
+        fullName = fullName;
         Email = email;
         Age = age;
         PhoneNumber = phoneNumber;
@@ -25,11 +25,11 @@ public class User{
     }
 
     public String getFullName() {
-        return FullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        FullName = fullName;
+        fullName = fullName;
     }
 
     public String getEmail() {
