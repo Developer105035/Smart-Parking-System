@@ -38,22 +38,24 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
         // Code to show full name of the user
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
-
         final TextView fullNameTextView = (TextView) findViewById(R.id.welcome);
+
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
-                String fullName = userProfile.FullName;
+                String fullName = userProfile.getFullName();
 
 
-                fullNameTextView.setText("Welcome, ");
+                fullNameTextView.setText("Welcome, "+fullName);
 
             }
 
@@ -64,8 +66,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-
-        super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_profile);
        // preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
       //  TextView textView = (TextView) findViewById(R.id.welcome);
