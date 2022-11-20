@@ -13,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.test2.R;
+import com.example.test2.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,12 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextUsername, editTextPassword;
     private Button SignIn;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-
+        user = mAuth.getCurrentUser();
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
 
@@ -65,6 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        user.reload();
+    }
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.register:
@@ -72,8 +80,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.loginbtn:
-                userlogin();  // method
-                break;
+                if(user.isEmailVerified()){
+                    userlogin();
+                    break;
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"Please verify your account",Toast.LENGTH_LONG).show();
+                }
         }
     }
 
