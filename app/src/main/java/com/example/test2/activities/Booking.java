@@ -118,9 +118,20 @@ public class Booking extends AppCompatActivity {
         }
         if(date!=0){
 //            for(int i = 0, i <  )
-
+            TableRow header = new TableRow(getApplicationContext());
+            for (int j = 1; j <= 3; j++) {
+                TextView t = new TextView(getApplicationContext());
+                t.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                t.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_size));
+                t.setTextColor(Color.rgb(255, 255, 255));
+                t.setGravity(Gravity.CENTER);
+                t.setText("Slot" + Integer.toString(j));
+                header.addView(t);
+            }
+            tbl.addView(header, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
 
             reference = FirebaseDatabase.getInstance().getReference("Booking");
+            int finalTimeStart = timeStart;
             reference.child(Long.toString(date)).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -141,10 +152,48 @@ public class Booking extends AppCompatActivity {
                     }
 
 //                    for(int i =0;i<3;i++){
-//                        for(int j=0;j<slots[i].length;j++){
-//                            System.out.println(i+" " +j+" "+slots[i][j]);
+//                        if(slots[i]!=null) {
+//                            for (int j = 0; j < slots[i].length; j++) {
+//                                System.out.println(i + " " + j + " " + slots[i][j]);
+//                            }
 //                        }
 //                    }
+                    for (int i = finalTimeStart; i <= 23; i++) {
+                        TableRow tr = new TableRow(getApplicationContext());
+
+                        for (int j = 1; j <= 3; j++) {
+                            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+                            lp.setMargins(10, 10, 10, 10);
+                            Button b = new Button(getApplicationContext());
+                            b.setTag(Integer.toString(j) + ", " + Integer.toString(i));
+                            b.setLayoutParams(lp);
+                            b.setText(Integer.toString(i));
+                            int flag = 0;
+                            if(slots[j-1]!=null) {
+                                {
+                                    for (int s = 0; s < slots[j - 1].length; s++) {
+                                        if (slots[j - 1][s] == i) {
+                                            b.setBackgroundColor(Color.rgb(255, 0, 0));
+                                            System.out.println("we are in the loop of changing color to RED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                                            flag = 1;
+                                            break;
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            if(flag==0){
+                                b.setBackgroundColor(Color.rgb(0, 255, 0));
+                                b.setOnClickListener(onClickListener);
+                            }
+
+                            tr.addView(b);
+                        }
+
+                        tbl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                    }
+
                 }
 
                 @Override
@@ -154,66 +203,9 @@ public class Booking extends AppCompatActivity {
             });
         }
 
-        TableRow header = new TableRow(getApplicationContext());
-        for (int j = 1; j <= 3; j++) {
-            TextView t = new TextView(getApplicationContext());
-            t.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            t.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_size));
-            t.setTextColor(Color.rgb(255, 255, 255));
-            t.setGravity(Gravity.CENTER);
-            t.setText("Slot" + Integer.toString(j));
-            header.addView(t);
-        }
-        tbl.addView(header, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-
-        for (int i = timeStart; i <= 23; i++) {
-            TableRow tr = new TableRow(getApplicationContext());
-
-            for (int j = 1; j <= 3; j++) {
-                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(10, 10, 10, 10);
-                Button b = new Button(getApplicationContext());
-                b.setTag(Integer.toString(j) + ", " + Integer.toString(i));
-                b.setLayoutParams(lp);
-                b.setText(Integer.toString(i));
-
-               System.out.println(slots[0].length);
-//                    for (int e : slots[j-1]) {
-//                        if (e == i) {
-//                            b.setBackgroundColor(Color.rgb(255, 0, 0));
-//                            flag = 1;
-//                            break;
-//                        }
-//
-//                }
 
 
 
-//
-//                if((Arrays.asList(slots[j-1]).contains(6)) && slots[j-1].length != 0){
-//                    b.setBackgroundColor(Color.rgb(255, 0, 0));
-//                    System.out.println("we are in the loop of changing color to RED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                }
-//                if(slots.size()!=0 && slots.get(j-1).size()!=0){
-//                    for(int k = 0;k<slots.get(j-1).size();k++)
-//                    {
-//                        if(slots.get(j-1).get(k) == i){
-//                            b.setBackgroundColor(Color.rgb(255, 0, 0));
-//                            flag = 1;
-//                            break;
-//                        }
-//                    }
-//
-//                }
-
-                    b.setBackgroundColor(Color.rgb(0, 255, 0));
-                    b.setOnClickListener(onClickListener);
-
-                tr.addView(b);
-            }
-
-            tbl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-        }
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
