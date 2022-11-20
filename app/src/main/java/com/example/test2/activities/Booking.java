@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,8 +37,10 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.test2.R;
+import com.example.test2.classes.Slot;
 import com.example.test2.classes.SlotBooking;
 import com.example.test2.classes.User;
+import com.example.test2.classes.history_data;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,6 +58,7 @@ import java.util.Calendar;
 public class Booking extends AppCompatActivity {
     long date=0,cur;
     int a_day, a_month, a_year;
+    String DateHistory;
     String arrivalDate;
     int[][] slots = new int[3][];
     String formattedDateStr = "";
@@ -257,11 +261,13 @@ public class Booking extends AppCompatActivity {
                                         }
                                     }
                                 });
+
+                        DateHistory = (Integer.toString(a_day) + "-" + Integer.toString(a_month) +  "-"+ Integer.toString(a_year));
+                        history_data history = new history_data(slot,time,arrivalDate);
                         FirebaseDatabase.getInstance().getReference( "History")
-                                .child(Long.toString(date))
-                                .child(slot)
-                                .child(time)
-                                .setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child((slot) + "_" + (time) +"_" +(date))
+                                .setValue(history).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()){

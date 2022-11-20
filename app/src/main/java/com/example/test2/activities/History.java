@@ -58,7 +58,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void ViewHistory() {
-        reference = FirebaseDatabase.getInstance().getReference("History").child("GTuHDd0eiNRg0ws1hftkZMTtQJI2");
+        reference = FirebaseDatabase.getInstance().getReference("History").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 ///
 
 
@@ -107,9 +107,9 @@ public class History extends AppCompatActivity implements View.OnClickListener {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     history_data data = new history_data();
-                    System.out.println(snapshot.getValue(history_data.class).getSlot());
-                    System.out.println(snapshot.getValue(history_data.class).getDate());
-                    System.out.println(snapshot.getValue(history_data.class).getBookingStart());
+//                    System.out.println(snapshot.getValue(history_data.class).getSlot());
+//                    System.out.println(snapshot.getValue(history_data.class).getDate());
+//                    System.out.println(snapshot.getValue(history_data.class).getBookingStart());
 
 
                     TableRow tr = new TableRow(getApplicationContext());
@@ -128,16 +128,16 @@ public class History extends AppCompatActivity implements View.OnClickListener {
                         b.setLayoutParams(lp);
                         b.setGravity( Gravity.CENTER  );
                         if(j==1){
-                            b.setText(Integer.toString(snapshot.getValue(history_data.class).getSlot()));
+                           b.setText((snapshot.getValue(history_data.class).getSlot()));
                             b.setTextColor(rgb(255,0,0));
                         }
                         else if (j==2){
-                            b.setText(Integer.toString(snapshot.getValue(history_data.class).getBookingStart()));
+                            b.setText((snapshot.getValue(history_data.class).getBookingStart()));
                             b.setTextColor(rgb(100,120,100));
                         }
                         else if (j==3){
 
-                            b.setText(Integer.toString(snapshot.getValue(history_data.class).getBookingStart()));
+                            b.setText((snapshot.getValue(history_data.class).getDate()));
                             b.setTextColor(rgb(0,0,255));
                         }
 

@@ -4,39 +4,39 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class history_data {
-    int Slot;
-int BookingStart;
-int Date;
+    String Slot;
+    String BookingStart;
+String Date;
     public history_data() {
 
     }
-    public history_data(int slot, int bookingStart, int date) {
+    public history_data(String slot, String bookingStart, String date) {
         this.Slot = slot;
         this.BookingStart = bookingStart;
         this.Date = date;
     }
 
-    public int getSlot() {
+    public String getSlot() {
         return Slot;
     }
 
-    public void setSlot(int slot) {
+    public void setSlot(String slot) {
         Slot = slot;
     }
 
-    public int getBookingStart() {
+    public String getBookingStart() {
         return BookingStart;
     }
 
-    public void setBookingStart(int bookingStart) {
+    public void setBookingStart(String bookingStart) {
         BookingStart = bookingStart;
     }
 
-    public int getDate() {
+    public String getDate() {
         return Date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         Date = date;
     }
 }

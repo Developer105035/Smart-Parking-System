@@ -98,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.settings:
-                startActivity(new Intent(this, Settings.class));
+                startActivity(new Intent(this, UserSettings.class));
                 break;
         }
     }
