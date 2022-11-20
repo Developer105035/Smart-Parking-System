@@ -1,41 +1,42 @@
 package com.example.test2.classes;
 
 public class SlotBooking {
-    long bookingStart;
-    int slotId;
-    String userId;
+    long BookingStart;
+    String Slot;
+    String UserID;
+
 
     public SlotBooking(){
 
     }
-    public SlotBooking(long bookingStart, int slotId, String userId)
+    public SlotBooking(long bookingStart, String slotId, String userId)
     {
-        this.bookingStart = bookingStart;
-        this.slotId = slotId;
-        this.userId = userId;
+        this.BookingStart = bookingStart;
+        this.Slot = slotId;
+        this.UserID = userId;
     }
     public long getBookingStart() {
-        return bookingStart;
+        return this.BookingStart;
     }
 
-    public int getSlotId() {
-        return slotId;
+    public String getSlot() {
+        return this.Slot;
     }
 
-    public void setSlotId(int slotId) {
-        this.slotId = slotId;
+    public void setSlot(String slotId) {
+        this.Slot = slotId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserID() {
+        return UserID;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserID(String userId) {
+        this.UserID = userId;
     }
 
     public void setBookingStart(long bookingStart) {
-        this.bookingStart = bookingStart;
+        this.BookingStart = bookingStart;
     }
 }
 
