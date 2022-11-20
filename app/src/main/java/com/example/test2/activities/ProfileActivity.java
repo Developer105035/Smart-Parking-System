@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.test2.R;
 import com.example.test2.classes.User;
@@ -26,9 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
-    SharedPreferences preferences;
-    //// changes to get Welcome fullname of the user
-
     private FirebaseUser user;
     private DatabaseReference  reference;
     private String userID;
@@ -40,21 +38,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        // Code to show full name of the user
-
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
-        final TextView fullNameTextView = (TextView) findViewById(R.id.welcome);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 String fullName = userProfile.getFullName();
-
-                fullNameTextView.setText("Welcome, "+fullName);
+                mToolbar.setTitle("Welcome"+fullName.toUpperCase());
 
             }
 
@@ -64,6 +59,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         });
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            }
+        });
+        // Code to show full name of the user
+
+
 
        // setContentView(R.layout.activity_profile);
        // preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);

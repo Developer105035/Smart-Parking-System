@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.test2.R;
 import com.example.test2.classes.User;
@@ -46,10 +47,16 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterUser.this, MainActivity.class));
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
 
-        app_name = (TextView) findViewById(R.id.app_name);
-        app_name.setOnClickListener(this);
 
         registerUser = (Button) findViewById(R.id.registerbtn);
         registerUser.setOnClickListener(this);
@@ -68,16 +75,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
     switch(view.getId()){
-
-        case R.id.app_name:
-            startActivity(new Intent( this, MainActivity.class));
-            //rootNode = FirebaseDatabase.getInstance();
-           // myRef=  rootNode.getReference( );
-            //User user = new User("pawan","pavan@gmail.com", "22", "1236547896", "qwed5qwsdf", "A82698", "12345678");
-
-
-           // myRef.child("User").setValue(user);
-            break;
         case R.id.registerbtn:
             registerUser();  // method with the name of RegisterUser
             break;

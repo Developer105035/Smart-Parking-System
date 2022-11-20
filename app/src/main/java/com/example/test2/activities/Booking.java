@@ -33,6 +33,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.test2.R;
 import com.example.test2.classes.SlotBooking;
@@ -68,6 +69,14 @@ public class Booking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Booking.this, ProfileActivity.class));
+            }
+        });
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         tbl = (TableLayout) findViewById(R.id.slots);
         tbl.setStretchAllColumns(true);

@@ -7,6 +7,14 @@
     android:background="@drawable/background"
     tools:context=".activities.Booking">
 
+    <android.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:titleTextColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.widget.EditText
         android:id="@+id/arriveTimestamp"
         android:layout_width="235dp"
