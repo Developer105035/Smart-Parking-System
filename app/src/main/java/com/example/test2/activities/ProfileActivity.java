@@ -52,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
+
                 String fullName = userProfile.getFullName();
 
                 fullNameTextView.setText("Welcome, "+fullName);

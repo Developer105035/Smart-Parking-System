@@ -76,6 +76,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             //User user = new User("pawan","pavan@gmail.com", "22", "1236547896", "qwed5qwsdf", "A82698", "12345678");
 
 
+
            // myRef.child("User").setValue(user);
             break;
         case R.id.registerbtn:
