@@ -41,7 +41,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/EditProfile"
+        android:id="@+id/edit_profile"
         android:layout_below="@id/buttonLogout"
         android:text="Edit Profile"
         android:textColor="@color/white"
