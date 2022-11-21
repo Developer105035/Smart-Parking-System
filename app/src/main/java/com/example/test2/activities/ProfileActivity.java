@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 User userProfile = snapshot.getValue(User.class);
 
                 String fullName = userProfile.getFullName();
-                mToolbar.setTitle("Welcome"+fullName.toUpperCase());
+                mToolbar.setTitle("Welcome "+fullName.toUpperCase());
 
             }
 

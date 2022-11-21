@@ -22,9 +22,16 @@ import com.example.test2.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
@@ -145,8 +152,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
        // myRef.child("User").child(email).setValue(user);
 
-
-
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,Password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
@@ -156,7 +161,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             User user = new User(FullName,email, Age, PhoneNumber, LicenseNo, Address, Password);
 
-
                             FirebaseDatabase.getInstance().getReference( "Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -164,26 +168,86 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
                                                 rootNode = FirebaseDatabase.getInstance();
+                                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                                firebaseUser.reload();
+                                                if(firebaseUser.isEmailVerified()){
+                                                    Toast.makeText( RegisterUser.this,"An account already exists for this email",Toast.LENGTH_LONG ).show();
+                                                    startActivity(new Intent(RegisterUser.this, MainActivity.class));
+                                                }
+                                                else {
+                                                    firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                System.out.println("Email Verified");
+                                                            }
+                                                        }
+                                                    });
+                                                }
                                                 myRef=  rootNode.getReference();
-
-
                                                 myRef.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
-
                                                 Toast.makeText( RegisterUser.this,"User has been registered successfully ",Toast.LENGTH_LONG ).show();
-                                                progressBar.setVisibility(View.GONE);
-
 
                                                 // Redirect to login layout.
                                                 startActivity(new Intent(RegisterUser.this, MainActivity.class));
                                             }else {
-                                                 Toast.makeText(RegisterUser.this,"Failed to Register, Try Again !", Toast.LENGTH_LONG).show();
-                                                 progressBar.setVisibility((View.GONE));
+                                                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                                                switch (errorCode) {
+                                                    case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
+                                                        Toast.makeText(RegisterUser.this, "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.", Toast.LENGTH_LONG).show();
+                                                        break;
+                                                    case "ERROR_EMAIL_ALREADY_IN_USE":
+                                                        Toast.makeText(RegisterUser.this, "The email address is already in use by another account.   ", Toast.LENGTH_LONG).show();
+                                                        break;
+
+                                                    case "ERROR_CREDENTIAL_ALREADY_IN_USE":
+                                                        Toast.makeText(RegisterUser.this, "This credential is already associated with a different user account.", Toast.LENGTH_LONG).show();
+                                                        break;
+
+                                                    case "ERROR_USER_DISABLED":
+                                                        Toast.makeText(RegisterUser.this, "The user account has been disabled by an administrator.", Toast.LENGTH_LONG).show();
+                                                        break;
+
+                                                    case "ERROR_USER_TOKEN_EXPIRED":
+                                                        Toast.makeText(RegisterUser.this, "The user\\'s credential is no longer valid. The user must sign in again.", Toast.LENGTH_LONG).show();
+                                                        break;
+
+                                                    case "ERROR_USER_NOT_FOUND":
+                                                        Toast.makeText(RegisterUser.this, "There is no user record corresponding to this identifier. The user may have been deleted.", Toast.LENGTH_LONG).show();
+                                                        break;
+                                                }
+
                                             }
                                         }
                                     });
 
-                        }else {
-                            Toast.makeText(RegisterUser.this,"Failed to Register, Try Again !", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                            switch (errorCode) {
+                                case "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL":
+                                    Toast.makeText(RegisterUser.this, "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.", Toast.LENGTH_LONG).show();
+                                    break;
+                                case "ERROR_EMAIL_ALREADY_IN_USE":
+                                    Toast.makeText(RegisterUser.this, "The email address is already in use by another account.   ", Toast.LENGTH_LONG).show();
+                                    break;
+
+                                case "ERROR_CREDENTIAL_ALREADY_IN_USE":
+                                    Toast.makeText(RegisterUser.this, "This credential is already associated with a different user account.", Toast.LENGTH_LONG).show();
+                                    break;
+
+                                case "ERROR_USER_DISABLED":
+                                    Toast.makeText(RegisterUser.this, "The user account has been disabled by an administrator.", Toast.LENGTH_LONG).show();
+                                    break;
+
+                                case "ERROR_USER_TOKEN_EXPIRED":
+                                    Toast.makeText(RegisterUser.this, "The user\\'s credential is no longer valid. The user must sign in again.", Toast.LENGTH_LONG).show();
+                                    break;
+
+                                case "ERROR_USER_NOT_FOUND":
+                                    Toast.makeText(RegisterUser.this, "There is no user record corresponding to this identifier. The user may have been deleted.", Toast.LENGTH_LONG).show();
+                                    break;
+                            }
                             progressBar.setVisibility((View.GONE));
 
                         }
@@ -194,6 +258,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
 
 
 }
