@@ -25,6 +25,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseUser user;
@@ -51,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 String fullName = userProfile.getFullName();
                 mToolbar.setTitle("Welcome "+fullName.toUpperCase());
+
 
             }
 
@@ -79,10 +85,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Button booking = (Button) findViewById(R.id.book);
         Button history = (Button) findViewById(R.id.history);
         Button settings = (Button) findViewById(R.id.settings);
+        Button otp = (Button) findViewById(R.id.otp);
 
         booking.setOnClickListener(this);
         history.setOnClickListener(this);
         settings.setOnClickListener(this);
+        otp.setOnClickListener(this);
 
     }
     @SuppressLint("NonConstantResourceId")
@@ -100,7 +108,35 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.settings:
                 startActivity(new Intent(this, UserSettings.class));
                 break;
+
+            case R.id.otp:
+                checkBooking();
+
+                startActivity(new Intent(this, GenerateOTP.class));
+                break;
         }
     }
+    public void checkBooking(){
+        reference = FirebaseDatabase.getInstance().getReference("History");
+        DateFormat df = new SimpleDateFormat("HH");
+        df.setTimeZone(TimeZone.getTimeZone("EST"));
+        int timeStart = Integer.parseInt(df.format(new Date())) + 1;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot childSnapshot : snapshot.getChildren()){
+                    String userDate = (String) childSnapshot.child("date").getValue();
+                    long date = format.parse().getTime();
 
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProfileActivity.this,"Something went wrong!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

@@ -17,9 +17,16 @@ import com.example.test2.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -66,12 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        user.reload();
-    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -80,13 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.loginbtn:
-                if(user.isEmailVerified()){
-                    userlogin();
-                    break;
-                }
-                else{
-                    Toast.makeText(MainActivity.this,"Please verify your account",Toast.LENGTH_LONG).show();
-                }
+                userlogin();
         }
     }
 
@@ -112,23 +107,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editTextPassword.requestFocus();
             return;
         }
-
-
-
+        String e = username.replace('.',',');
 
         mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
-                    //redirect to user profile
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                }
-                else{
-                    Toast.makeText(MainActivity.this,"Failed to login Please check your credentials",Toast.LENGTH_LONG).show();
+                    if(task.isSuccessful()){
+                        mAuth.getCurrentUser().reload();
+                        if(mAuth.getCurrentUser().isEmailVerified()) {//redirect to user profile
+                            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this,"Please verify your email!",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this,"Please check your credentials or Register",Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
-            }
-        });
+            });
+
+
+
     }
 }

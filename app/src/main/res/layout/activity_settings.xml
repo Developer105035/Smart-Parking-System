@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-<<<<<<< HEAD
     tools:context=".activities.UserSettings">
 
 
@@ -58,15 +57,3 @@
 
 
 </RelativeLayout>
-
-=======
-    tools:context=".activities.Settings">
-    <android.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:titleTextColor="#ffffff"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> 093a05c10a0af9591b793aa32c85f4daa84077a0

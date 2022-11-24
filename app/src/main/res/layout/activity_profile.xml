@@ -21,46 +21,62 @@
       android:id="@+id/book"
       android:layout_width="match_parent"
       android:layout_height="100dp"
-      android:layout_marginTop="164dp"
+      android:layout_marginTop="104dp"
 
+      android:background="#30ffffff"
+      android:backgroundTint="#ff0000ff"
       android:text="@string/make_nbooking"
       android:textColor="#FFFF"
       android:textSize="20sp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      android:backgroundTint="#ff0000ff"
-      android:background="#30ffffff"/>
+      app:layout_constraintTop_toTopOf="parent" />
 
   <android.widget.Button
       android:id="@+id/history"
       android:layout_width="match_parent"
       android:layout_height="100dp"
-      android:layout_marginTop="312dp"
+      android:layout_marginTop="364dp"
 
+      android:background="#30ffffff"
+      android:backgroundTint="#ff0000ff"
       android:text="@string/view_nhistory"
       android:textColor="#FFFFFF"
       android:textSize="20sp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <android.widget.Button
+      android:id="@+id/otp"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_marginTop="232dp"
+
+      android:background="#30ffffff"
       android:backgroundTint="#ff0000ff"
-      android:background="#30ffffff"/>
+      android:text="Arrived?"
+      android:textColor="#FFFF"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
   <android.widget.Button
       android:id="@+id/settings"
       android:layout_width="match_parent"
       android:layout_height="100dp"
-      android:layout_marginTop="460dp"
-      android:backgroundTint="#ff0000ff"
+      android:layout_marginTop="508dp"
       android:background="#30ffffff"
+      android:backgroundTint="#ff0000ff"
       android:text="@string/settings"
       android:textColor="#FFFFFF"
       android:textSize="20sp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 

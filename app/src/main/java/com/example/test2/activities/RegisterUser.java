@@ -186,7 +186,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                                 }
                                                 myRef=  rootNode.getReference();
                                                 myRef.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
-                                                Toast.makeText( RegisterUser.this,"User has been registered successfully ",Toast.LENGTH_LONG ).show();
+                                                Toast.makeText( RegisterUser.this,"Verification mail is sent to your email id.",Toast.LENGTH_LONG ).show();
 
                                                 // Redirect to login layout.
                                                 startActivity(new Intent(RegisterUser.this, MainActivity.class));

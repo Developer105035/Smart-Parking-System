@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,13 @@
         android:theme="@style/Theme.Test2"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
+            android:name=".activities.GenerateOTP"
+            >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activities.EditProfile"
             android:exported="false">
             <meta-data
@@ -22,9 +29,6 @@
         </activity>
         <activity
             android:name=".activities.UserSettings"
-=======
-            android:name=".activities.Settings"
->>>>>>> 093a05c10a0af9591b793aa32c85f4daa84077a0
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
