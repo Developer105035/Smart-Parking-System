@@ -127,7 +127,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot childSnapshot : snapshot.getChildren()){
                     String userDate = (String) childSnapshot.child("date").getValue();
-                    long date = format.parse().getTime();
+                    //long date = format.parse().getTime();
 
                 }
 
