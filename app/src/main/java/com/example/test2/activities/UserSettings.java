@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.test2.classes.User;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +32,14 @@ public class UserSettings extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserSettings.this, ProfileActivity.class));
+            }
+        });
         Auth = FirebaseAuth.getInstance();
 
         Button SignOut =  findViewById(R.id.buttonLogout);

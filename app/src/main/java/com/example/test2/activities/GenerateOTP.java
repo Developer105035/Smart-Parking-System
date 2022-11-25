@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.test2.R;
 
@@ -20,6 +21,14 @@ public class GenerateOTP extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_otp);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GenerateOTP.this, ProfileActivity.class));
+            }
+        });
         Button send= (Button) findViewById(R.id.button);
         EditText phoneNumber= (EditText) findViewById(R.id.editText);
         send.setOnClickListener(new View.OnClickListener() {

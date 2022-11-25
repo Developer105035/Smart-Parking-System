@@ -7,7 +7,13 @@
     android:background="@drawable/background"
     tools:context=".activities.UserSettings">
 
-
+    <android.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:titleTextColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:text="Settings"
         android:id="@+id/setting"

@@ -37,11 +37,8 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.test2.R;
-import com.example.test2.classes.Slot;
 import com.example.test2.classes.SlotBooking;
-import com.example.test2.classes.User;
 import com.example.test2.classes.history_data;
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
