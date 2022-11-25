@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.test2.R;
 import com.example.test2.classes.User;
@@ -36,6 +37,14 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditProfile.this, UserSettings.class));
+            }
+        });
         Button submit = findViewById(R.id.submit);
         submit.setOnClickListener(this);
         editTextFullName = (EditText) findViewById(R.id.full_name);
