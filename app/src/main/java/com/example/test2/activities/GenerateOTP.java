@@ -34,20 +34,22 @@ public class GenerateOTP extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Uri uri = Uri.parse("smsto:4388553288");
-                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-                PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
-                String number=phoneNumber.getText().toString();
-                String msg="Message";
-                try {
-                    SmsManager smsManager=SmsManager.getDefault();
-                    smsManager.sendTextMessage(number,null,msg,pending,null);
-                    Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_LONG).show();
-                }catch (Exception e)
-                {
-                    System.out.println(e);
-                    Toast.makeText(getApplicationContext(),"Some fields is Empty",Toast.LENGTH_LONG).show();
-                }
+
+
+//                Uri uri = Uri.parse("smsto:4388553288");
+//                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+//                PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
+//                String number=phoneNumber.getText().toString();
+//                String msg="Message";
+//                try {
+//                    SmsManager smsManager=SmsManager.getDefault();
+//                    smsManager.sendTextMessage(number,null,msg,pending,null);
+//                    Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_LONG).show();
+//                }catch (Exception e)
+//                {
+//                    System.out.println(e);
+//                    Toast.makeText(getApplicationContext(),"Some fields is Empty",Toast.LENGTH_LONG).show();
+//                }
             }
         });
     }

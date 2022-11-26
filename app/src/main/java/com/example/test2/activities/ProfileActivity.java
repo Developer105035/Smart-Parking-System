@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -111,23 +112,36 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.otp:
                 checkBooking();
-
-                startActivity(new Intent(this, GenerateOTP.class));
                 break;
         }
     }
     public void checkBooking(){
         reference = FirebaseDatabase.getInstance().getReference("History");
-        DateFormat df = new SimpleDateFormat("HH");
-        df.setTimeZone(TimeZone.getTimeZone("EST"));
-        int timeStart = Integer.parseInt(df.format(new Date())) + 1;
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        final int[] flag = {0};
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        String current_month = String.valueOf( Calendar.getInstance().get(Calendar.MONTH)+1);
+        String current_year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        String current_date = String.valueOf(Calendar.getInstance().get(Calendar.DATE));
+        String date = (current_date + "-" + current_month + "-" + current_year);
+        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for (DataSnapshot childSnapshot : snapshot.getChildren()){
-                    String userDate = (String) childSnapshot.child("date").getValue();
-                    //long date = format.parse().getTime();
+                    String userDate = String.valueOf(childSnapshot.child("date").getValue());
+                    String T = (String) childSnapshot.child("bookingStart").getValue();
+                    int time = Integer.parseInt(T);
+                    if ((date.equals(userDate)) & (time == hour24hrs)){
+                        reference = FirebaseDatabase.getInstance().getReference().child("Gate");
+                        reference.child("open").setValue(1);
+                        reference = FirebaseDatabase.getInstance().getReference("History");
+                   System.out.println("We are in the loops!!!!!!!!!!!!!1");
+                    }
 
                 }
 
@@ -138,5 +152,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(ProfileActivity.this,"Something went wrong!", Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }
